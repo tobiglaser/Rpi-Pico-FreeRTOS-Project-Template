@@ -13,8 +13,8 @@ void vTaskCode( void * pvParameters )
     */
     stdio_init_all();
     const int LED_PIN = PICO_DEFAULT_LED_PIN;
-    gpio_init(25);
-    gpio_set_dir(25, GPIO_OUT);
+    gpio_init(LED_PIN);
+    gpio_set_dir(LED_PIN, GPIO_OUT);
 
     for( ;; )
     {
