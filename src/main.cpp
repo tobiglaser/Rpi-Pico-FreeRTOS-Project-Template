@@ -2,23 +2,28 @@
 #include "pico/stdlib.h"
 #include "FreeRTOS.h"
 #include "task.h"
-#include "GPIO.hpp"
-#include <array>
 
 
-static pico_cpp::GPIO_Pin ledPin(25,pico_cpp::PinType::Output);
+
 void vTaskCode( void * pvParameters )
 {
     /* The parameter value is expected to be 1 as 1 is passed in the
     pvParameters value in the call to xTaskCreate() below. 
     configASSERT( ( ( uint32_t ) pvParameters ) == 1 );
     */
+    stdio_init_all();
+    const int LED_PIN = PICO_DEFAULT_LED_PIN;
+    gpio_init(25);
+    gpio_set_dir(25, GPIO_OUT);
+
     for( ;; )
     {
-            ledPin.set_high();
-            vTaskDelay(1000);
-            ledPin.set_low();
-            vTaskDelay(1000);
+        printf("ON\n");
+        gpio_put(LED_PIN, 1);
+        vTaskDelay(500);
+        printf("OFF\n");
+        gpio_put(LED_PIN, 0);
+        vTaskDelay(500);
     }
 }
 
